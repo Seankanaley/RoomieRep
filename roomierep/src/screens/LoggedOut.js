@@ -44,10 +44,7 @@ class LoggedOut extends Component {
                         <Text style={styles.moreOptionsButtonText}>More options</Text>
                     </TouchableHighlight>
                     <View style={styles.termsAndConditions}>
-                        <Text style={styles.termsText}>
-                            By tapping Continue, Create Account or More
-                        </Text>
-                        <Text style={styles.termsText}> Options. </Text>
+                        <Text style={styles.termsText}>By tapping Continue, Create Account or More Options. </Text>
                         <Text style={styles.termsText}>I agree to Roomache's </Text>
                         <TouchableHighlight style={styles.linkButton}>
                             <Text style={styles.termsText}>Terms of Service</Text>
@@ -63,8 +60,9 @@ class LoggedOut extends Component {
                         <Text style={styles.termsText}>, </Text>
                         <Text style={styles.termsText}> and </Text>
                         <TouchableHighlight style={styles.linkButton}>
-                            <Text style={styles.termsText}>Nondiscrimination Policy.</Text>
+                            <Text style={styles.termsText}>Nondiscrimination Policy</Text>
                         </TouchableHighlight>
+                        <Text style={styles.termsText}>.</Text>
                     </View>
                 </View>
             </View>
@@ -120,6 +118,7 @@ const styles = StyleSheet.create({
         color: colors.white,
         fontSize: 13,
         fontWeight: '600',
+
     },
     linkButton: {
         borderBottomWidth: 1,
