@@ -5,14 +5,32 @@ import colors from '../styles/colors';
 import { View, Text, ScrollView, StyleSheet, KeyboardAvoidingView, } from 'react-native';
 import InputField from '../components/forms/InputField';
 import NextArrowButton from '../components/buttons/NextArrowButton';
+import Notification from '../components/Notification';
 
 class LogIn extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            formValid: false,
+        }
+        this.handleCloseNotification = this.handleCloseNotification.bind(this);
+    }
     handleNextButton() {
         alert("Next button pressed")
     }
+
+    handleCloseNotification() {
+        this.setState({ formValid: true });
+    }
     render() {
+        const { formValid } = this.state
+        const showNotification = formValid ? false : true;
+        const background = formValid ? colors.green01 : colors.darkOrange;
         return (
-            <KeyboardAvoidingView style={styles.wrapper}>
+            <KeyboardAvoidingView 
+            style={[{backgroundColor: background}, styles.wrapper]} 
+            behavior="padding"
+            >
                 <View style={styles.scrollViewWrapper}>
                     <ScrollView style={styles.scrollView}>
                         <Text style={styles.loginHeader}>Log In</Text>
@@ -40,6 +58,15 @@ class LogIn extends Component {
                             handleNextButton={this.handleNextButton}
                         />
                     </View>
+                    <View style={showNotification ? {marginTop: 10} : {}}>
+                        <Notification 
+                        showNotification={showNotification}
+                        handleCloseNotification={this.handleCloseNotification}
+                        type={"Error"}
+                        firstLine="Those credentials don't look right."
+                        secondLine=" Please try again"
+                        />
+                    </View>
                 </View>
             </KeyboardAvoidingView>
         );
@@ -50,7 +77,6 @@ const styles = StyleSheet.create({
     wrapper: {
         display: 'flex',
         flex: 1,
-        backgroundColor: colors.green01,
     },
     scrollViewWrapper: {
         marginTop: 70,
