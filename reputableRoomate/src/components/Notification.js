@@ -21,7 +21,7 @@ class Notification extends Component {
             positionValue,
             {
                 toValue: value,
-                duration: 400,
+                duration: 300,
                 velocity: 3,
                 tension: 2,
                 friction: 8,
@@ -37,7 +37,7 @@ class Notification extends Component {
     render() {
         const { type, firstLine, secondLine, showNotification } = this.props;
         const { positionValue } = this.state;
-        showNotification ? this.animateNotification(0) : this.animateNotification(60);
+        showNotification ? this.animateNotification(25) : this.animateNotification(100);
         return (
             <Animated.View style={[{transform: [{ translateY: positionValue }]}, styles.wrapper]}>
                 <View style={styles.notificationContent}>
@@ -60,7 +60,7 @@ class Notification extends Component {
     }
 }
 
-Notification.PropTypes = {
+Notification.propTypes = {
     showNotification: PropTypes.bool.isRequired,
     type: PropTypes.string.isRequired,
     firstLine: PropTypes.string,

@@ -20,7 +20,7 @@ class RoundedButton extends Component {
     }
 }
 
-RoundedButton.PropTypes = {
+RoundedButton.propTypes = {
     text: PropTypes.string.isRequired,
     textColor: PropTypes.string,
     background: PropTypes.string,
