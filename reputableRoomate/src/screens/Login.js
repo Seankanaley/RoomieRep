@@ -76,7 +76,7 @@ class LogIn extends Component {
     }
 
     render() {
-        const { formValid, loadingVisible } = this.state
+        const { formValid, loadingVisible, validEmail, validPassword } = this.state
         const willShowNotification = formValid ? false : true;
         const background = formValid ? colors.green01 : colors.darkOrange;
         const notificationMarginTop = willShowNotification ? 10 : 0;
@@ -97,6 +97,7 @@ class LogIn extends Component {
                             inputType="email"
                             customStyle={{ marginBottom: 30 }}
                             onChangeText={this.handleEmailChange}
+                            showCheckmark={validEmail}
                         />
                         <InputField
                             labelText="PASSWORD"
@@ -107,6 +108,8 @@ class LogIn extends Component {
                             inputType="password"
                             customStyle={{ marginBottom: 30 }}
                             onChangeText={this.handlePasswordChange}
+                            showCheckmark={validPassword}
+                            autoFocus={true}
                         />
                     </ScrollView>
                     <View style={styles.nextButton}>
