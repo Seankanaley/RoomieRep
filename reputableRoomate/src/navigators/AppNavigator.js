@@ -1,15 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addNavigationHelpers, StackNavigator } from 'react-navigation';
+import { addNavigationHelpers } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 import LoggedOut from '../screens/LoggedOut';
 import LogIn from '../screens/LogIn';
 import ForgotPassword from '../screens/ForgotPassword';
 
-export const AppNavigator = StackNavigator({
+ const AppNavigator = createStackNavigator({
     LoggedOut: { screen: LoggedOut },
     LogIn: { screen: LogIn },
     ForgotPassword: { screen: ForgotPassword },
+}, {
+    initialRouteName: 'LoggedOut',
 });
 
 const AppWithNavigationState = ({ dispatch, nav, listener }) => (
