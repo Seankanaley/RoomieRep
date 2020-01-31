@@ -26,7 +26,7 @@ class Loader extends Component {
     }
 }
 
-Loader.PropTypes = {
+Loader.propTypes = {
     animationType: PropTypes.string.isRequired,
     modalVisible: PropTypes.bool.isRequired,
 }

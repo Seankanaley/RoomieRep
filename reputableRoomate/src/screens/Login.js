@@ -3,6 +3,9 @@ import { PropTypes } from 'prop-types';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import colors from '../styles/colors';
 import { View, Text, ScrollView, StyleSheet, KeyboardAvoidingView, } from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { ActionCreators } from '../redux/actions';
 import InputField from '../components/forms/InputField';
 import NextArrowButton from '../components/buttons/NextArrowButton';
 import Notification from '../components/Notification';
@@ -15,6 +18,7 @@ class LogIn extends Component {
             formValid: true,
             validEmail: false,
             emailAddress: '',
+            password: '',
             validPassword: false,
             loadingVisible: false,
         }
@@ -29,12 +33,18 @@ class LogIn extends Component {
         this.setState({ loadingVisible: true });
 
         setTimeout(() => {
-            if ((this.state.emailAddress === 'test@gmail.com') && this.state.validPassword) {
-                alert("Success");
+            const { emailAddress, password } = this.state;
+            if (this.props.logIn( emailAddress, password )) {
                 this.setState({ formValid: true, loadingVisible: false });
             } else {
                 this.setState({ formValid: false, loadingVisible: false });
             }
+            // if ((this.state.emailAddress === 'test@gmail.com') && this.state.validPassword) {
+            //     alert("Success");
+            //     this.setState({ formValid: true, loadingVisible: false });
+            // } else {
+            //     this.setState({ formValid: false, loadingVisible: false });
+            // }
         }, 2000);
     }
 
@@ -54,6 +64,7 @@ class LogIn extends Component {
     }
 
     handlePasswordChange(password) {
+        this.setState({ password });
         if (!this.state.validPassword) {
             if (password.length > 4) {
                 this.setState({ validPassword: true });
@@ -112,12 +123,10 @@ class LogIn extends Component {
                             autoFocus={true}
                         />
                     </ScrollView>
-                    <View style={styles.nextButton}>
-                        <NextArrowButton
-                            handleNextButton={this.handleNextButton}
-                            disabled={this.toggleNextButtonState()}
-                        />
-                    </View>
+                    <NextArrowButton
+                        handleNextButton={this.handleNextButton}
+                        disabled={this.toggleNextButtonState()}
+                    />
                     <View style={[styles.notificationWrapper, { marginTop: notificationMarginTop }]}>
                         <Notification
                             showNotification={willShowNotification}
@@ -160,17 +169,22 @@ const styles = StyleSheet.create({
         marginBottom: 40,
 
     },
-    nextButton: {
-        alignItems: 'flex-end',
-        right: 20,
-        bottom: 20,
-    },
     notificationWrapper: {
         position: 'absolute',
         width: '100%',
         bottom: 0,
-
     },
 });
 
-export default LogIn;
+const mapStateToProps = (state) => {
+    return {
+        loggedinStatus: state.loggedinStatus,
+
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators(ActionCreators, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LogIn);

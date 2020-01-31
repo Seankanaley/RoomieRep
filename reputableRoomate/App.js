@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View } from "react-native";
-import LoggedOut from './src/screens/LoggedOut';
-import LogIn from './src/screens/Login';
-import ForgotPassword from './src/screens/ForgotPassword';
+import { Provider } from 'react-redux';
+import store from './src/redux/store';
+import { createReduxBoundAddListener } from 'react-navigation-redux-helpers';
+import AppWithNavigationState from './src/navigators/AppNavigator';
+
 
 class App extends Component {
 
   render() {
     return (
-      <ForgotPassword />
+      <Provider store={store}>
+        <AppWithNavigationState listener={createReduxBoundAddListener('root')} />
+      </Provider>
     );
   }
 }
